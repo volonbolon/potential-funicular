@@ -1,97 +1,15 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+I self impose a limit of 8 hours, and tried to achive a set of finished features. Because of that, there is plenty of room to improve almost each corner of the app. 
 
-# Getting Started
+First, let's talk about the architecture. I choose to go with VIPER. Not because is the most appropriate for the app, but because I wanted to show something different. Obviously, the compose architecture should be vanished (i do understand Apple advancing it as a pedagogical tool, it is simpler than other patterns, but it drives to gigantic Views). MVVM would be great for a small and simple app (like this one). VIPER is a little bit more complex, but it also helps with the modularization and abstraction of different layers. 
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+I also choose to inject dependencies, and use protocols for the services. That way we can simply swap them for testing. 
 
-## Step 1: Start Metro
+Regarding services, obviously, in a real app we might want to talk to some kind of live API. 
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+I am using SwiftData to store entities. It is a simple solution, and is really easy to swap the underlying store if needed (here we are exposing a simple struct, that can be cycled with any solution (core data, Realm, etc)). 
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+For the react side i choose against React Web. Mostly because of my self imposed time limit. I am not that familiar with such a flavour. I have tried a few times in the past, and the performance was always dissapointing. That's why i choose React. I am loading it through RCTBridgeModule. It is far more perfomant. We are dispatching a payload from Swift to React, and then, we are messaging swift from react (asking for a list of supposed prices to show in a chart). 
 
-```sh
-# Using npm
-npm start
+I've also decided to use Typescript, instead of JS. The reason is simple, i like typed languages. You might need to define types, and perhaps sometimes seems a little more cumbersome, but at the end of the day, is safer. Less prone to bugs, easier to deploy. 
 
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+For the cart i am using victory with skia. It is simple, and it offers some support for manipulation (i've used it to show a tooltip with each price). There are pleny of alternatives. I've had wonderful results with D3.js and Echarts, but these are way more complex. That's why i choose Victory. 
