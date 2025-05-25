@@ -1,15 +1,17 @@
-I self impose a limit of 8 hours, and tried to achive a set of finished features. Because of that, there is plenty of room to improve almost each corner of the app. 
+I set a limit of 8 hours and managed to finish a bunch of features. That means there’s still a lot of room for improvement in almost every part of the app.
 
-First, let's talk about the architecture. I choose to go with VIPER. Not because is the most appropriate for the app, but because I wanted to show something different. Obviously, the compose architecture should be vanished (i do understand Apple advancing it as a pedagogical tool, it is simpler than other patterns, but it drives to gigantic Views). MVVM would be great for a small and simple app (like this one). VIPER is a little bit more complex, but it also helps with the modularization and abstraction of different layers. 
+Let’s start with the architecture. I chose VIPER, not because it’s the best choice for the app, but just to show a different way of doing things. Of course, I should probably get rid of the compose architecture (I know Apple says it’s a good way to learn, but it’s simpler than other patterns, but it makes the views too big). MVVM would be perfect for a small and simple app like this one. VIPER is a bit more complicated, but it also makes it easier to break up the app into different parts and hide the details.
 
-I also choose to inject dependencies, and use protocols for the services. That way we can simply swap them for testing. 
+I also decided to use protocols for the services. That way, we can easily switch them out for testing.
 
-Regarding services, obviously, in a real app we might want to talk to some kind of live API. 
+When it comes to services, in a real-world scenario, we might want to use a live API.
 
-I am using SwiftData to store entities. It is a simple solution, and is really easy to swap the underlying store if needed (here we are exposing a simple struct, that can be cycled with any solution (core data, Realm, etc)). 
+I’m using SwiftData to store the data. It’s a simple solution, and it’s easy to switch the underlying store if we need to (we’re showing a simple struct that can be changed with any solution, like Core Data or Realm).
 
-For the react side i choose against React Web. Mostly because of my self imposed time limit. I am not that familiar with such a flavour. I have tried a few times in the past, and the performance was always dissapointing. That's why i choose React. I am loading it through RCTBridgeModule. It is far more perfomant. We are dispatching a payload from Swift to React, and then, we are messaging swift from react (asking for a list of supposed prices to show in a chart). 
+For the React side, I didn’t use React Web because I was running out of time. I’m not really familiar with that particular version. I’ve tried it a few times before, and it’s always been slow. That’s why I chose React. I’m loading it through RCTBridgeModule, which is much faster. We send a message from Swift to React, and then we send a message back from React (asking for a list of prices to show in a chart).
 
-I've also decided to use Typescript, instead of JS. The reason is simple, i like typed languages. You might need to define types, and perhaps sometimes seems a little more cumbersome, but at the end of the day, is safer. Less prone to bugs, easier to deploy. 
+For the internal state, I’m using Redux. Some people might say that for a simple app (or part of an app), it might be easier to pass props around. That might be true, but I like the idea of having a single place to keep all the data.
 
-For the cart i am using victory with skia. It is simple, and it offers some support for manipulation (i've used it to show a tooltip with each price). There are pleny of alternatives. I've had wonderful results with D3.js and Echarts, but these are way more complex. That's why i choose Victory. 
+I’ve made a switch to TypeScript instead of JavaScript. Why? I’m a big fan of typed languages. Sure, defining types can be a bit of a pain, but it makes the code safer and less likely to break. Plus, it’s easier to deploy.
+
+For the cart, I’m using Victory with Skia. It’s a simple and user-friendly option that has some support for manipulation. I’ve used it to show a tooltip for each price. There are plenty of other options, but I’ve had great results with D3.js and Echarts, but they’re way more complicated. That’s why I went with Victory. 
